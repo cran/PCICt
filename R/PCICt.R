@@ -1,18 +1,3 @@
-## [1] as.character.POSIXt Axis.POSIXt*        cut.POSIXt
-## [4] diff.POSIXt         hist.POSIXt*        is.numeric.POSIXt
-## [7] julian.POSIXt       Math.POSIXt         months.POSIXt
-##[10] Ops.POSIXt          -.POSIXt            +.POSIXt
-##[13] pretty.POSIXt*      quantile.POSIXt*    quarters.POSIXt
-##[16] seq.POSIXt          str.POSIXt*         trunc.POSIXt
-##[19] weekdays.POSIXt
-
-## [1] all.equal.POSIXct      as.data.frame.POSIXct  as.Date.POSIXct
-## [4] as.list.POSIXct        as.POSIXlt.POSIXct     c.POSIXct
-## [7] format.POSIXct         mean.POSIXct           [<-.POSIXct
-##[10] [.POSIXct              [[.POSIXct             print.POSIXct
-##[13] rep.POSIXct            split.POSIXct          Summary.POSIXct
-##[16] summary.POSIXct        weighted.mean.POSIXct* xtfrm.POSIXct
-
 origin.year <- 1970
 origin.year.POSIXlt <- 1900
 
@@ -22,10 +7,6 @@ setOldClass("PCICt")
 ## - Implement axis functions (Axis.POSIXt/axis.POSIXct) so that plots will line up nicely
 ## - S4 class to avoid stripping of attributes?
 ## - Proleptic gregorian?
-## - Document 360-day calendar
-## - Ensure origin.year etc are part of this namespace and don't leak out
-## - Document difficulties / problems with R functions stripping attributes
-## - Add proper error message in .PCICt when 'cal' is missing
 
 PCICt.get.months <- function(cal) {
   m.365 <- c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
@@ -35,7 +16,7 @@ PCICt.get.months <- function(cal) {
 
 .PCICt <- function(x, cal) {
   if(missing(cal)) stop("Can't create a PCICt with no calendar type")
-  ## FIXME: Add check for missing calendar
+  ## FIXME: Add check for sane calendar type.
   structure(x, cal=cal, months=PCICt.get.months(cal), class=c("PCICt", "POSIXct", "POSIXt"), dpy=switch(cal, "365_day"=365, "360_day"=360, "365"=365, "360"=360), tzone="GMT", units="secs")
 }
 
@@ -145,6 +126,7 @@ as.PCICt.default <- function(x, cal, ...) {
 as.PCICt.POSIXlt <- function(x, cal, ...) {
   tz <- "GMT"
   year.length <- switch(cal, "360_day"=360, "365_day"=365, "365"=365, "360"=360, "noleap"=365, "gregorian"=NULL, "proleptic_gregorian"=NULL)
+  ## FIXME: Add check for sane calendar type.
   ## Warning about proleptic gregorian
   if(cal == "proleptic_gregorian") warning("Proleptic gregorian is implemented as gregorian, which is off by 3+ days. Make sure you know what you are doing here.")
   if(is.null(year.length)) {
@@ -159,6 +141,10 @@ as.PCICt.POSIXlt <- function(x, cal, ...) {
     return(.PCICt((x$year + origin.year.POSIXlt - origin.year) * year.length * seconds.per.day +
                   months.off[x$mon + 1] * seconds.per.day + (x$mday - 1) * seconds.per.day + x$hour * seconds.per.hour + x$min * 60 + x$sec, cal=cal))
   }
+}
+
+as.PCICt.POSIXct <- function(x, cal, ...) {
+  as.PCICt.POSIXlt(as.POSIXlt(x), cal, ...)
 }
 
 as.POSIXlt.PCICt <- function(x, tz="", ...) {

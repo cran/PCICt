@@ -1,1 +1,1 @@
-export(.PCICt, as.PCICt, as.PCICt.default, as.PCICt.POSIXlt, as.POSIXlt.PCICt, as.POSIXct.PCICt, range.PCICt, c.PCICt, "+.PCICt", "-.PCICt", Ops.PCICt, rep.PCICt, mean.PCICt, seq.PCICt, trunc.PCICt, "[.PCICt", "[<-.PCICt", cut.PCICt, diff.PCICt, is.numeric.PCICt, julian.PCICt)
+export(.PCICt, as.PCICt, as.PCICt.default, as.PCICt.POSIXlt, as.PCICt.POSIXct, as.POSIXlt.PCICt, as.POSIXct.PCICt, range.PCICt, c.PCICt, "+.PCICt", "-.PCICt", Ops.PCICt, rep.PCICt, mean.PCICt, seq.PCICt, trunc.PCICt, "[.PCICt", "[<-.PCICt", cut.PCICt, diff.PCICt, is.numeric.PCICt, julian.PCICt)

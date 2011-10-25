@@ -59,3 +59,8 @@
 }
 \keyword{climate}
 \keyword{ts}
+\keyword{calendar}
+\keyword{date}
+\keyword{time}
+\keyword{chron}
+\keyword{utilities}
