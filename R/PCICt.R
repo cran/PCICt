@@ -61,6 +61,16 @@ mean.PCICt <- function(x, ...) {
   .PCICt(mean(unclass(x), ...), attr(x, "cal"))
 }
 
+min.PCICt <- function(x, ...) {
+  res <- NextMethod()
+  return(copy.atts.PCICt(x, res))
+}
+
+max.PCICt <- function(x, ...) {
+  res <- NextMethod()
+  return(copy.atts.PCICt(x, res))
+}
+
 seq.PCICt <- function(from, to, by, length.out = NULL, along.with = NULL, ...) {
   stopifnot(attr(from, "cal") == attr(to, "cal"))
   class(from) <- class(to) <- c("POSIXct", "POSIXt")
@@ -178,7 +188,7 @@ as.POSIXlt.PCICt <- function(x, tz="", ...) {
     hour <- floor(hms.remainder / seconds.per.hour)
     minute <- floor((hms.remainder %% seconds.per.hour) / 60)
     second <- hms.remainder %% 60
-    return(.POSIXlt(list(sec=second, min=minute, hour=hour, mday=day, mon=month - 1, year=year - origin.year.POSIXlt, wday=wday, yday=yday, isdst=0), tz))
+    return(.POSIXlt(list(sec=second, min=minute, hour=hour, mday=day, mon=month - 1, year=year - origin.year.POSIXlt, wday=wday, yday=yday - 1, isdst=0), tz))
   }
 }
 

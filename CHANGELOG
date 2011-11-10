@@ -1,3 +1,7 @@
+0.3-2: Fix off-by-one with Julian days.
+
+0.3-1: Add min.PCICt and max.PCICt.
+
 0.2-2: Actually export as.PCICt.POSIXct in the namespace. Whoops.
 
 0.2-1: Cleaned up comments in code, added as.PCICt.POSIXct, added documentation for it, added more examples.
