@@ -3,26 +3,32 @@
 \alias{as.PCICt.default}
 \alias{as.PCICt.POSIXlt}
 \alias{as.PCICt.POSIXct}
+\alias{as.PCICt.numeric}
 \alias{.PCICt}
 \alias{as.POSIXct.PCICt}
 \alias{as.POSIXlt.PCICt}
+\alias{as.character.PCICt}
 \title{PCICt}
 \description{
   These functions convert between PCICt objects and other types of data.
 }
 \usage{
-as.PCICt(x, cal, ...)
+\method{as}{PCICt}(x, cal, \dots)
 .PCICt(x, cal)
-as.PCICt.default(x, cal, ...)
-as.PCICt.POSIXlt(x, cal, ...)
-as.PCICt.POSIXct(x, cal, ...)
-as.POSIXct.PCICt(x, tz="", ...)
-as.POSIXlt.PCICt(x, tz="", ...)
+\method{as.PCICt}{numeric}(x, cal, origin, \dots)
+\method{as.PCICt}{default}(x, cal, format, \dots)
+\method{as.PCICt}{POSIXlt}(x, cal, \dots)
+\method{as.PCICt}{POSIXct}(x, cal, \dots)
+\method{as.POSIXct}{PCICt}(x, tz="", \dots)
+\method{as.POSIXlt}{PCICt}(x, tz="", \dots)
+\method{as.character}{PCICt}(x, ...)
 }
 \arguments{
   \item{x}{the input data.}
   \item{cal}{the calendar type.}
+  \item{origin}{the origin for a numeric time.}
   \item{tz}{the time zone to put the data in.}
+  \item{format}{the format to parse the date using.}
   \item{...}{any additional arguments passed on.}
 }
 
@@ -38,12 +44,19 @@ as.POSIXlt.PCICt(x, tz="", ...)
   .PCICt converts numeric objects into PCICt objects, using x as seconds
   since 1970-01-01 and applying the supplied calendar to the data.
 
+  as.PCICt.numeric converts numeric objects into PCICt objects, using \code{x}
+  as seconds since the origin. \code{origin} can be either a character or a
+  PCICt object.
+  
   as.POSIXct.PCICt and as.POSIXlt.PCICt convert PCICt objects into
   POSIXct or POSIXlt objects, respectively. With POSIXct objects, this
   may result in apparent gaps in the timeseries, and the transformation
   will not be trivially reversible. See the example below for how to
   transition between PCICt and POSIXct.
 
+  as.character.PCICt converts a PCICt object to a character string
+  representation of that object.
+  
   as.PCICt.default, as.PCICt.POSIXct, and as.PCICt.POSIXlt are helpers
   which are called by as.PCICt. Normally you will not need to call them
   directly.
