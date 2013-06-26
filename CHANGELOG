@@ -1,3 +1,7 @@
+0.5-4: Fix test so Windows build works.
+
+0.5-3: License change, proper credit to authors of code used as a base for PCICt.
+
 0.5-2: RESULTS CHANGE: Default gregorian calendar is proleptic; corrections applied are invalid. "Correction" code removed.
        Minor change: Add checking for calendar to operators.
 
