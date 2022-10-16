@@ -1,3 +1,7 @@
+0.5-4.2: Registers native routines per https://cran.r-project.org/doc/manuals/R-exts.html#Registering-native-routines
+
+0.5-4.1: Upstream of the CRAN team's package maintenance efforts
+
 0.5-4: Fix test so Windows build works.
 
 0.5-3: License change, proper credit to authors of code used as a base for PCICt.

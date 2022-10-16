@@ -217,7 +217,7 @@ static int Rwcsncasecmp(const wchar_t *cs1, const wchar_t *s2)
   (*(new_fmt) != '\0'							      \
    && (rp = w_strptime_internal (rp, (new_fmt), tm, decided, psecs, poffset)) != NULL)
 
-static wchar_t *
+static inline wchar_t *
 w_strptime_internal (wchar_t *rp, const wchar_t *fmt, struct tm *tm,
 		     enum locale_status *decided, double *psecs, 
 		     int *poffset)

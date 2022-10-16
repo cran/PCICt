@@ -1,6 +1,6 @@
 import(graphics)
 import(methods)
-useDynLib(PCICt)
+useDynLib(PCICt, .registration=TRUE)
 S3method(c, PCICt)
 S3method(rep, PCICt)
 S3method(seq, PCICt)
