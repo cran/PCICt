@@ -1,6 +1,6 @@
 Package: PCICt
-Version: 0.5-4.2
-Date: 2022-10-12
+Version: 0.5-4.3
+Date: 2022-10-17
 Title: Implementation of POSIXct Work-Alike for 365 and 360 Day
         Calendars
 Author: David Bronaugh <bronaugh@uvic.ca> for the Pacific Climate
@@ -15,5 +15,5 @@ License: GPL-2
 URL: https://www.r-project.org
 NeedsCompilation: yes
 Repository: CRAN
-Packaged: 2022-10-12 19:17:42 UTC; james
-Date/Publication: 2022-10-16 07:45:18 UTC
+Packaged: 2022-10-17 20:53:20 UTC; james
+Date/Publication: 2022-10-18 07:35:20 UTC

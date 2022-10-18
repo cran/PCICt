@@ -356,11 +356,11 @@ format.POSIXlt.360 <- function(x, format="") {
 }
 
 as.POSIXct.POSIXlt.360 <- function(x) {
-  .Call("do_asPOSIXct_360", x, format)
+  .Call("do_asPOSIXct_360", x)
 }
 
 as.POSIXlt.POSIXct.360 <- function(x) {
-  .Call("do_asPOSIXlt_360", x, format)
+  .Call("do_asPOSIXlt_360", x)
 }
 
 as.PCICt.default <- function(x, cal, format, ...) {

@@ -535,7 +535,7 @@ static void makelt(struct tm *tm, SEXP ans, int i, int valid, double frac_secs)
 
 SEXP do_asPOSIXlt_360(SEXP data)
 {
-    SEXP x, ans, ansnames, klass;
+    SEXP x, ans, ansnames, klass, GMT;
     int i, n, valid;
 
     PROTECT(x = coerceVector(data, REALSXP));
@@ -566,8 +566,9 @@ SEXP do_asPOSIXlt_360(SEXP data)
     SET_STRING_ELT(klass, 0, mkChar("POSIXlt"));
     SET_STRING_ELT(klass, 1, mkChar("POSIXt"));
     classgets(ans, klass);
-    setAttrib(ans, install("tzone"), mkString("GMT"));
-    UNPROTECT(4);
+    GMT = PROTECT(mkString("GMT"));
+    setAttrib(ans, install("tzone"), GMT);
+    UNPROTECT(5);
 
     return ans;
 }
@@ -770,7 +771,7 @@ static void glibc_fix(struct tm *tm, int *invalid)
 
 SEXP do_strptime_360(SEXP data, SEXP format)
 {
-    SEXP x, sformat, ans, ansnames, klass;
+    SEXP x, sformat, ans, ansnames, klass, GMT;
     int i, n, m, N, invalid, offset;
     struct tm tm, tm2, *ptm = &tm;
     double psecs = 0.0;
@@ -840,15 +841,16 @@ SEXP do_strptime_360(SEXP data, SEXP format)
     SET_STRING_ELT(klass, 0, mkChar("POSIXlt"));
     SET_STRING_ELT(klass, 1, mkChar("POSIXt"));
     classgets(ans, klass);
-    setAttrib(ans, install("tzone"), mkString("GMT"));
+    GMT = PROTECT(mkString("GMT"));
+    setAttrib(ans, install("tzone"), GMT);
 
-    UNPROTECT(3);
+    UNPROTECT(4);
     return ans;
 }
 
 SEXP do_D2POSIXlt_360(SEXP data)
 {
-    SEXP x, ans, ansnames, klass;
+    SEXP x, ans, ansnames, klass, UTC;
     int n, i, valid;
     int day;
     int y, tmp, mon;
@@ -898,8 +900,9 @@ SEXP do_D2POSIXlt_360(SEXP data)
     SET_STRING_ELT(klass, 0, mkChar("POSIXlt"));
     SET_STRING_ELT(klass, 1, mkChar("POSIXt"));
     classgets(ans, klass);
-    setAttrib(ans, install("tzone"), mkString("UTC"));
-    UNPROTECT(4);
+    UTC = PROTECT(mkString("UTC"));
+    setAttrib(ans, install("tzone"), UTC);
+    UNPROTECT(5);
 
     return ans;
 }
@@ -950,20 +953,6 @@ SEXP do_POSIXlt2D_360(SEXP data)
     classgets(ans, klass);
     UNPROTECT(3);
     return ans;
-}
-
-void R_init_mylib(DllInfo* info) {
-  R_CallMethodDef callMethods[] = {
-    {"do_asPOSIXlt_360", (DL_FUNC) &do_asPOSIXlt_360, 1 },
-    {"do_asPOSIXct_360", (DL_FUNC) &do_asPOSIXct_360, 1 },
-    {"do_formatPOSIXlt_360", (DL_FUNC) &do_formatPOSIXlt_360, 2 },
-    {"do_strptime_360", (DL_FUNC) &do_strptime_360, 2 },
-    {"do_D2POSIXlt_360", (DL_FUNC) &do_D2POSIXlt_360, 1 },
-    {"do_POSIXlt2D_360", (DL_FUNC) &do_POSIXlt2D_360, 1 },
-    { NULL, NULL, 0 }
-  };
-  
-  R_registerRoutines(info, NULL, callMethods, NULL, NULL);
 }
 
 void R_unload_mylib(DllInfo* info) {
