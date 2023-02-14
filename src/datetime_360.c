@@ -698,6 +698,10 @@ SEXP do_formatPOSIXlt_360(SEXP data, SEXP format)
 #endif
 		    strcpy(buf2, q);
 
+                /* Handle R-specific format %OSn, which for output
+                   gives the seconds truncated to 0 <= n <= 6 decimal
+                   places
+                 */
 		char* p = strstr(q, "%OS");
 		if(p) {
 		    /* FIXME some of this should be outside the loop */
@@ -715,7 +719,7 @@ SEXP do_formatPOSIXlt_360(SEXP data, SEXP format)
 			/* truncate to avoid nuisances such as PR#14579 */
 			double s = secs, t = pow(10.0, (double) ns);
 			s = ((int) (s*t))/t;
-			sprintf(p2, "%0*.*f", ns+3, ns, s);
+			snprintf(p2, ns+3+1, "%0*.*f", ns+3, ns, s);
 			strcat(buf2, p+nused);
 		    } else {
 			strcat(p2, "%S");

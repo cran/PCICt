@@ -43,6 +43,14 @@ PCICt.test.as.PCICt <- function() {
 
   ## Check numeric input...
   checkEquals(as.PCICt(86400, origin="1961-01-01", cal="360"), as.PCICt("1961-01-02", cal="360"))
+
+  ## Check several cases for the 360 sub-second string formatting
+  date.360 <- as.PCICt("2012-02-28 12:34:56.7", cal="360")
+  checkEquals(as.character(date.360, "%M:%OS1"), "34:56.7")
+  checkEquals(as.character(date.360, "%M:%OS2"), "34:56.70")
+  checkEquals(as.character(date.360, "%M:%OS6"), "34:56.700000")
+  checkEquals(as.character(date.360, "%M:%OS7"), "34:56.700000")
+  checkEquals(as.character(date.360, "%M:%OSx"), "34:56x")
 }
 
 ## Tests subset operators
